@@ -22,7 +22,7 @@ from app.models.schemas.items import (
     ListOfItemsInResponse,
 )
 from app.resources import strings
-from app.services.items import check_item_exists, get_slug_for_item
+from app.services.items import check_item_exists, get_slug_for_item, get_image_for_item
 from app.services.event import send_event
 
 router = APIRouter()
@@ -68,6 +68,12 @@ async def create_new_item(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail=strings.ITEM_ALREADY_EXISTS,
         )
+    if(item_create.image == None):
+        item_create.image = await get_image_for_item(item_create.title):
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail=strings.ITEM_ALREADY_EXISTS,
+            )
     item = await items_repo.create_item(
         slug=slug,
         title=item_create.title,
