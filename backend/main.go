@@ -23,7 +23,7 @@ func main() {
 	router.GET("/", greet)
 	router.HEAD("/healthcheck", healthcheck)
 	router.GET("/Items", getItems)
-	router.POST("/Items", postItems)
+	//router.POST("/Items", postItems)
 
 	router.Run()
 }
