@@ -21,7 +21,7 @@ var items = []Item{
 func main() {
 	router := gin.Default()
 	router.GET("/", greet)
-	//router.HEAD("/healthcheck", healthcheck)
+	router.HEAD("/healthcheck", healthcheck)
 	router.GET("/Items", getItems)
 	router.POST("/Items", postItems)
 
