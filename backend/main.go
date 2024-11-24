@@ -6,16 +6,16 @@ import (
 )
 
 type Item struct {
-    ID     string  `json:"id"`
+    ID    string  `json:"id"`
     Name  string  `json:"name"`
 }
 
 var items = []Item{
-    {ID: "1", name: "Galactic Goggles"},
-    {ID: "2", name: "Meteor Muffins"},
-    {ID: "3", name: "Alien Antenna Kit"},
-	{ID: "4", name: "Starlight Lantern"},
-	{ID: "5", name: "Quantum Quill"},
+    {ID: "1", Name: "Galactic Goggles"},
+    {ID: "2", Name: "Meteor Muffins"},
+    {ID: "3", Name: "Alien Antenna Kit"},
+	{ID: "4", Name: "Starlight Lantern"},
+	{ID: "5", Name: "Quantum Quill"},
 }
 
 func main() {
