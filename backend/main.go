@@ -6,16 +6,16 @@ import (
 )
 
 type Item struct {
-    ID    string  `json:"id"`
+    ID    int  `json:"id"`
     Name  string  `json:"name"`
 }
 
 var items = []Item{
-    {ID: "1", Name: "Galactic Goggles"},
-    {ID: "2", Name: "Meteor Muffins"},
-    {ID: "3", Name: "Alien Antenna Kit"},
-	{ID: "4", Name: "Starlight Lantern"},
-	{ID: "5", Name: "Quantum Quill"},
+    {ID: 1, Name: "Galactic Goggles"},
+    {ID: 2, Name: "Meteor Muffins"},
+    {ID: 3, Name: "Alien Antenna Kit"},
+	{ID: 4, Name: "Starlight Lantern"},
+	{ID: 5, Name: "Quantum Quill"},
 }
 
 func main() {
@@ -23,11 +23,10 @@ func main() {
 	router.GET("/", greet)
 	router.HEAD("/healthcheck", healthcheck)
 	router.GET("/items", getItems)
-	//router.POST("/Items", postItems)
+	router.POST("/items", postItems)
 
 	router.Run()
 }
-
 
 
 func getItems(c *gin.Context){
@@ -36,6 +35,7 @@ func getItems(c *gin.Context){
 
 func postItems(c *gin.Context){
 	var newItem Item
+	newItem.ID = len(items) + 1
 	if err := c.BindJSON(&newItem); err != nil {
         return
     }
