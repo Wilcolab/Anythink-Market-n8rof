@@ -9,6 +9,7 @@ import (
 type Item struct {
     ID    int  `json:"id"`
     Name  string  `json:"name"`
+	Views int `json:"-"`
 }
 
 var items = []Item{
@@ -48,12 +49,15 @@ func postItems(c *gin.Context){
 func getItemById(c *gin.Context){
 	id, err := strconv.Atoi(c.Param("id"))
 	if err != nil {
-		c.IndentedJSON(http.StatusInternalServerError, "Atoi failed")
+		c.IndentedJSON(http.StatusInternalServerError, gin.H{"message":"strconv Atoi failed"})
         return
     }
-	for _, item := range items {
+	for indx, item := range items {
 		if item.ID == id {
-			c.IndentedJSON(http.StatusOK, item)
+			go func() {
+				items[indx].Views += 1
+			}()
+			c.IndentedJSON(http.StatusOK, items[indx])
 			return
 		}
 	}
