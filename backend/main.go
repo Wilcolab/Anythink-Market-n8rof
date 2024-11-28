@@ -3,6 +3,7 @@ package main
 import (
 	"net/http"
 	"github.com/gin-gonic/gin"
+	"strconv"
 )
 
 type Item struct {
@@ -23,11 +24,11 @@ func main() {
 	router.GET("/", greet)
 	router.HEAD("/healthcheck", healthcheck)
 	router.GET("/items", getItems)
+	router.GET("/items/:id", getItemById)
 	router.POST("/items", postItems)
-
+	
 	router.Run()
 }
-
 
 func getItems(c *gin.Context){
 	c.IndentedJSON(http.StatusOK, items)
@@ -42,6 +43,21 @@ func postItems(c *gin.Context){
 
     items = append(items, newItem)
     c.IndentedJSON(http.StatusCreated, newItem)
+}
+
+func getItemById(c *gin.Context){
+	id, err := strconv.Atoi(c.Param("id"))
+	if err != nil {
+		c.IndentedJSON(http.StatusInternalServerError, "Atoi failed")
+        return
+    }
+	for _, item := range items {
+		if item.ID == id {
+			c.IndentedJSON(http.StatusOK, item)
+			return
+		}
+	}
+	c.IndentedJSON(http.StatusNotFound, gin.H{"message": "item not found"})
 }
 
 func greet(c *gin.Context) {
