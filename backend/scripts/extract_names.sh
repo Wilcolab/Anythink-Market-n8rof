@@ -14,4 +14,4 @@ do
         amazon_workers+=("$f_name $l_name")
     fi
 done
-printf "%s\n" "${amazon_workers[@]}" > "names_output.txt"
+printf "%s\n" "${amazon_workers[@]}" > "output_names.txt"
