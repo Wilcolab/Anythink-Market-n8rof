@@ -39,4 +39,4 @@ async def get_image_for_item(title: str) -> str:
         "Authorization": f"Bearer {api_key}"
     }
     response = requests.post(url, json=payload, headers=headers)
-    return response.data
+    return response.url
